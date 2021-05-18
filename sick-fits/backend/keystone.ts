@@ -7,6 +7,7 @@ import {
 } from '@keystone-next/keystone/session';
 import { User } from './schemas/User';
 import { Product } from './schemas/Product';
+import { ProductImage } from './schemas/ProductImage';
 
 const databaseURL =
   process.env.DATABASE_URL || 'mongodb://localhost/keystone-sick-fits-tutorial';
@@ -40,16 +41,14 @@ export default withAuth(
       // TODO: add data seeding here
     },
     lists: createSchema({
+      // schema items go in here
       User,
       Product,
-      // schema items go in here
+      ProductImage,
     }),
     ui: {
       // todo change this for roles
-      isAccessAllowed: ({ session }) => {
-        console.log(session);
-        return !!session?.data;
-      },
+      isAccessAllowed: ({ session }) => !!session?.data,
     },
     // TODO: add session values here
     session: withItemData(statelessSessions(sessionConfig), {
